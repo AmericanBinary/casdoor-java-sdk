@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Ldap;
 import org.casbin.casdoor.service.LdapService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,9 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LdapTest {
+public class LdapTest extends BaseCasdoorTest {
 
-    private final LdapService ldapService = new LdapService(TestDefaultConfig.InitConfig());
+    private LdapService ldapService;
+
+    @BeforeEach
+    void setUp() {
+        ldapService = new LdapService(adminConfig);
+    }
 
     @Test
     public void testLdap() {

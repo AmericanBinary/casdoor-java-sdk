@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Invitation;
 import org.casbin.casdoor.service.InvitationService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,9 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InvitationTest {
+public class InvitationTest extends BaseCasdoorTest {
 
-    private final InvitationService invitationService = new InvitationService(TestDefaultConfig.InitConfig());
+    private InvitationService invitationService;
+
+    @BeforeEach
+    void setUp() {
+        invitationService = new InvitationService(config);
+    }
 
     @Test
     public void testInvitation() {

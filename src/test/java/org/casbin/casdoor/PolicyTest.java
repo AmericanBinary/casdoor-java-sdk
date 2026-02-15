@@ -19,6 +19,7 @@ import org.casbin.casdoor.entity.Enforcer;
 import org.casbin.casdoor.service.EnforcerService;
 import org.casbin.casdoor.service.PolicyService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -28,11 +29,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PolicyTest {
+public class PolicyTest extends BaseCasdoorTest {
 
-    private final EnforcerService enforcerService = new EnforcerService(TestDefaultConfig.InitConfig());
+    private EnforcerService enforcerService;
+    private PolicyService policyService;
 
-    private final PolicyService policyService = new PolicyService(TestDefaultConfig.InitConfig());
+    @BeforeEach
+    void setUp() {
+        enforcerService = new EnforcerService(config);
+        policyService = new PolicyService(config);
+    }
 
     @Test
     public void testPolicy() {

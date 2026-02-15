@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Transaction;
 import org.casbin.casdoor.service.TransactionService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,9 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TransactionTest {
+public class TransactionTest extends BaseCasdoorTest {
 
-    private final TransactionService transactionService = new TransactionService(TestDefaultConfig.InitConfig());
+    private TransactionService transactionService;
+
+    @BeforeEach
+    void setUp() {
+        transactionService = new TransactionService(config);
+    }
 
     @Test
     public void testTransaction() {
@@ -35,7 +41,7 @@ public class TransactionTest {
 
         // Add a new object
         Transaction transaction = new Transaction(
-        "built-in",
+        config.organizationName,
         name,
         "display-name",
         "provider_pay_paypal",
@@ -45,9 +51,12 @@ public class TransactionTest {
         "Product Display Name",
         "This is a test transaction"
         );
+        transaction.application = config.applicationName;
 
 
-        assertDoesNotThrow(() -> transactionService.addTransaction(transaction));
+        assertDoesNotThrow(() -> {
+            transaction.name = transactionService.addTransaction(transaction).getData();
+        });
 
         // Get all objects, check if our added object is inside the list
         List<Transaction> transactions;
@@ -58,18 +67,18 @@ public class TransactionTest {
             return;
         }
 
-        boolean found = transactions.stream().anyMatch(item -> item.name.equals(name));
+        boolean found = transactions.stream().anyMatch(item -> item.name.equals(transaction.name));
         assertTrue(found, "Added object not found in list");
 
         // Get the object
         Transaction retrievedTransaction;
         try {
-            retrievedTransaction = transactionService.getTransaction(name);
+            retrievedTransaction = transactionService.getTransaction(transaction.name);
         } catch (Exception e) {
             fail("Failed to get object: " + e.getMessage());
             return;
         }
-        assertEquals(name, retrievedTransaction.name, "Retrieved object does not match added object");
+        assertEquals(transaction.name, retrievedTransaction.name, "Retrieved object does not match added object");
 
         // Update the object
         String updatedDisplayName = "Updated Transaction";
@@ -79,7 +88,7 @@ public class TransactionTest {
         // Validate the update
         Transaction updatedTransaction;
         try {
-            updatedTransaction = transactionService.getTransaction(name);
+            updatedTransaction = transactionService.getTransaction(transaction.name);
         } catch (Exception e) {
             fail("Failed to get updated object: " + e.getMessage());
             return;
@@ -92,7 +101,7 @@ public class TransactionTest {
         // Validate the deletion
         Transaction deletedTransaction;
         try {
-            deletedTransaction = transactionService.getTransaction(name);
+            deletedTransaction = transactionService.getTransaction(transaction.name);
         } catch (Exception e) {
             fail("Failed to delete object: " + e.getMessage());
             return;

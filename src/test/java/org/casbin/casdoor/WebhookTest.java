@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Webhook;
 import org.casbin.casdoor.service.WebhookService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,9 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WebhookTest {
-    private final WebhookService webhookService = new WebhookService(
-            TestDefaultConfig.InitConfig());
+public class WebhookTest extends BaseCasdoorTest {
+    private WebhookService webhookService;
+
+    @BeforeEach
+    void setUp() {
+        webhookService = new WebhookService(config);
+    }
 
     @Test
     public void testWebhook() { 
@@ -65,8 +70,8 @@ public class WebhookTest {
         assertEquals(name, retrievedWebhook.name, "Retrieved object does not match added object");
 
         // Update the object
-        String updatedOrganization = "Updated Casdoor Website";
-        retrievedWebhook.organization = updatedOrganization;
+        String updatedValue = "PUT";
+        retrievedWebhook.method = updatedValue;
         assertDoesNotThrow(() -> webhookService.updateWebhook(retrievedWebhook));
 
         // Validate the update
@@ -77,7 +82,7 @@ public class WebhookTest {
             fail("Failed to get updated object: " + e.getMessage());
             return;
         }
-        assertEquals(updatedOrganization, updatedWebhook.organization, "Failed to update object, organization mismatch");
+        assertEquals(updatedValue, updatedWebhook.method, "Failed to update object, updated value mismatch");
 
         // Delete the object
         assertDoesNotThrow(() -> webhookService.deleteWebhook(webhook));

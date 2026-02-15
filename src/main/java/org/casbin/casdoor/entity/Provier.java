@@ -37,6 +37,7 @@ public class Provier implements Serializable {
     public String customLogo;
     public String scopes;
     public Map<String, String> userMapping;
+    public Map<String, String> httpHeaders;
     public String host;
     public int port;
     public boolean disableSsl;

@@ -19,7 +19,7 @@ import org.casbin.casdoor.config.Config;
 import org.casbin.casdoor.entity.Record;
 import org.casbin.casdoor.util.Map;
 import org.casbin.casdoor.util.http.CasdoorResponse;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,7 +40,7 @@ public class RecordService extends Service {
 
         return response.getData();
     }
-    public java.util.Map<String, Object> getPaginationRecords(int p, int pageSize, @Nullable java.util.Map<String, String> queryMap) throws IOException {
+    public java.util.Map<String, Object> getPaginationRecords(int p, int pageSize, java.util.@Nullable Map<String, String> queryMap) throws IOException {
         CasdoorResponse<Record[], Object> casdoorResponse = doGet("get-sessions",
                 Map.mergeMap(Map.of("owner", config.organizationName,
                         "p", Integer.toString(p),

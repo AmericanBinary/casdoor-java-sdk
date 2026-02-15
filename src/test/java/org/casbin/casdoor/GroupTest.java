@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Group;
 import org.casbin.casdoor.service.GroupService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GroupTest {
-    private final GroupService groupService = new GroupService(TestDefaultConfig.InitConfig());
+public class GroupTest extends BaseCasdoorTest {
+    private GroupService groupService;
+
+    @BeforeEach
+    void setUp() {
+        groupService = new GroupService(config);
+    }
 
     @Test
     public void testGroup() {

@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Payment;
 import org.casbin.casdoor.service.PaymentService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PaymentTest {
-    private final PaymentService paymentService = new PaymentService(TestDefaultConfig.InitConfig());
+public class PaymentTest extends BaseCasdoorTest {
+    private PaymentService paymentService;
+
+    @BeforeEach
+    void setUp() {
+        paymentService = new PaymentService(config);
+    }
 
     @Test
     public void testPayment() {
@@ -66,7 +72,7 @@ public class PaymentTest {
 
         // Update the object
         String updatedProductName = "Updated Casdoor Website";
-        retrievedPayment.productName = updatedProductName;
+        retrievedPayment.productsDisplayName = updatedProductName;
         assertDoesNotThrow(() -> paymentService.updatePayment(retrievedPayment));
 
         // Validate the update
@@ -77,7 +83,7 @@ public class PaymentTest {
             fail("Failed to get updated object: " + e.getMessage());
             return;
         }
-        assertEquals(updatedProductName, updatedPayment.productName, "Failed to update object, productName mismatch");
+        assertEquals(updatedProductName, updatedPayment.productsDisplayName, "Failed to update object, productName mismatch");
 
         // Delete the object
         assertDoesNotThrow(() -> paymentService.deletePayment(payment));
@@ -93,4 +99,3 @@ public class PaymentTest {
         assertNull(deletedPayment, "Failed to delete object, it's still retrievable");
     }
 }
-

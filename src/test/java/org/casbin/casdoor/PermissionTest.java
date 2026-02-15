@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Permission;
 import org.casbin.casdoor.service.PermissionService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -26,10 +27,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PermissionTest {
+public class PermissionTest extends BaseCasdoorTest {
 
-    private final PermissionService permissionService = new PermissionService(
-            TestDefaultConfig.InitConfig());
+    private PermissionService permissionService;
+
+    @BeforeEach
+    void setUp() {
+        permissionService = new PermissionService(adminConfig);
+    }
 
     @Test
     public void testPermission() throws IOException {
@@ -45,7 +50,7 @@ public class PermissionTest {
                 new String[]{"casbin/*"},
                 new String[]{},
                 new String[]{},
-                "user-model-built-in",
+                "built-in/user-model-built-in",
                 "Application",
                 new String[]{"app-casbin"},
                 new String[]{"Read", "Write"},

@@ -39,6 +39,7 @@ public class Webhook {
     public int syncInterval;
     public boolean isReadOnly;
     public boolean isEnabled;
+    public String method;
 
     public Webhook() {
     }

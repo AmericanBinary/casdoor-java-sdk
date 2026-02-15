@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.User;
 import org.casbin.casdoor.service.UserService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,9 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserTest {
+public class UserTest extends BaseCasdoorTest{
 
-    private final UserService userService = new UserService(TestDefaultConfig.InitConfig());
+    private UserService userService;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        userService = new UserService(config);
+    }
 
     @Test
     public void testUser() {
@@ -65,8 +71,8 @@ public class UserTest {
         assertEquals(name, retrievedUser.name, "Retrieved object does not match added object");
 
         // Update the object
-        String updatedDisplayName = "Updated Casdoor Website";
-        retrievedUser.displayName = updatedDisplayName;
+        String updatedValue = "wechat";
+        retrievedUser.wechat = updatedValue;
         assertDoesNotThrow(() -> userService.updateUser(retrievedUser));
 
         // Validate the update
@@ -77,7 +83,7 @@ public class UserTest {
             fail("Failed to get updated object: " + e.getMessage());
             return;
         }
-        assertEquals(updatedDisplayName, updatedUser.displayName, "Failed to update object, displayName mismatch");
+        assertEquals(updatedValue, updatedUser.wechat, "Failed to update object, updated value mismatch");
 
         // Delete the object
         assertDoesNotThrow(() -> userService.deleteUser(user));

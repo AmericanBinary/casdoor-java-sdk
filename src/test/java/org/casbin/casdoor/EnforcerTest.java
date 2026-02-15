@@ -18,6 +18,7 @@ import org.casbin.casdoor.entity.CasbinRule;
 import org.casbin.casdoor.entity.Enforcer;
 import org.casbin.casdoor.service.EnforcerService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -27,9 +28,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EnforcerTest {
+public class EnforcerTest extends BaseCasdoorTest {
 
-    private final EnforcerService enforcerService = new EnforcerService(TestDefaultConfig.InitConfig());
+    private EnforcerService enforcerService;
+
+    @BeforeEach
+    void setUp() {
+        enforcerService = new EnforcerService(config);
+    }
 
     @Test
     public void testEnforcer() {

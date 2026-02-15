@@ -14,10 +14,10 @@
 
 package org.casbin.casdoor.support;
 
+import org.casbin.casdoor.BaseCasdoorTest;
 import org.casbin.casdoor.config.Config;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;

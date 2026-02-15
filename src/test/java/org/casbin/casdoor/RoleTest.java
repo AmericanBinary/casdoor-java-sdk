@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Role;
 import org.casbin.casdoor.service.RoleService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,10 +27,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class RoleTest {
+public class RoleTest extends BaseCasdoorTest {
 
-    private final RoleService roleService = new RoleService(
-            TestDefaultConfig.InitConfig());
+    private RoleService roleService;
+
+    @BeforeEach
+    void setUp() {
+        roleService = new RoleService(config);
+    }
 
     @Test
     public void testRole() {
@@ -95,5 +100,3 @@ public class RoleTest {
         assertNull(deletedRole, "Failed to delete object, it's still retrievable");
     }
 }
-
-

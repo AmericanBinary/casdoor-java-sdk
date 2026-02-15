@@ -18,18 +18,22 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Organization;
 import org.casbin.casdoor.service.OrganizationService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrganizationTest {
+public class OrganizationTest extends BaseCasdoorTest {
 
-    private OrganizationService organizationService = new OrganizationService(
-            TestDefaultConfig.InitConfig());
+    private OrganizationService organizationService;
+
+    @BeforeEach
+    void setUp() {
+        organizationService = new OrganizationService(config);
+    }
 
     @Test
     public void testOrganization() {

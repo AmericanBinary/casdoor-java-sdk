@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Pricing;
 import org.casbin.casdoor.service.PricingService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -26,10 +27,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PricingTest {
+public class PricingTest extends BaseCasdoorTest {
 
-    private final PricingService pricingService = new PricingService(
-            TestDefaultConfig.InitConfig());
+    private PricingService pricingService;
+
+    @BeforeEach
+    void setUp() {
+        pricingService = new PricingService(config);
+    }
 
     @Test
     public void testPricing() {
@@ -98,4 +103,3 @@ public class PricingTest {
     }
 
 }
-

@@ -14,6 +14,8 @@
 
 package org.casbin.casdoor.entity;
 
+import java.util.List;
+
 public class Payment {
     public String owner;
     public String name;
@@ -21,8 +23,8 @@ public class Payment {
     public String displayName;
     public String provider;
     public String type;
-    public String productName;
-    public String productDisplayName;
+    public List<String> products;
+    public String productsDisplayName;
     public String detail;
     public String tag;
     public String currency;
@@ -51,6 +53,5 @@ public class Payment {
         this.name = name;
         this.createdTime = createdTime;
         this.displayName = displayName;
-        this.productName = productName;
     }
 }

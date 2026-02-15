@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Plan;
 import org.casbin.casdoor.service.PlanService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,9 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlanTest {
-    private final PlanService planService = new PlanService(
-            TestDefaultConfig.InitConfig());
+public class PlanTest extends BaseCasdoorTest {
+    private PlanService planService;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        planService = new PlanService(config);
+    }
 
     @Test
     public void testPlan() {
@@ -41,6 +46,7 @@ public class PlanTest {
                 name,
                 "casbin"
         );
+        plan.currency = "CNY";
         assertDoesNotThrow(() -> planService.addPlan(plan));
 
         // Get all objects, check if our added object is inside the list
@@ -94,4 +100,3 @@ public class PlanTest {
         assertNull(deletedPlan, "Failed to delete object, it's still retrievable");
     }
 }
-

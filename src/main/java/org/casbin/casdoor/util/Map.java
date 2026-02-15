@@ -1,15 +1,15 @@
 package org.casbin.casdoor.util;
 
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Map {
 
-    public static String mapToUrlParams(@Nullable java.util.Map<String, String> map) {
+    public static String mapToUrlParams(java.util.@Nullable Map<String, String> map) {
         if (map == null || map.isEmpty()) {
             return "";
         }
@@ -19,8 +19,8 @@ public class Map {
                 .collect(Collectors.joining("&"));
     }
 
-    @NotNull
-    public static <T, V> java.util.Map<T, V> mergeMap(@Nullable java.util.Map<T, V> map1, @Nullable java.util.Map<T, V> map2) {
+
+    public static <T, V> java.util.@NonNull Map<T, V> mergeMap(java.util.@Nullable Map<T, V> map1, java.util.@Nullable Map<T, V> map2) {
         if (map1 == null) {
             return map2 == null ? new HashMap<>() : map2;
         }
@@ -32,8 +32,7 @@ public class Map {
     }
 
     @SafeVarargs
-    @NotNull
-    public static <T> java.util.Map<T, T> of(@NotNull T... kv) {
+    public static <T> java.util.@NonNull Map<T, T> of(@NonNull T... kv) {
         java.util.Map<T, T> map = new HashMap<>(kv.length / 2 + 1);
         for (int i = 0; i < kv.length; i += 2) {
             map.put(kv[i], kv[i + 1]);
@@ -41,7 +40,7 @@ public class Map {
         return map;
     }
 
-    public static <T, V> java.util.Map<T, V> of(@NotNull T k1, @NotNull V v1, @NotNull T k2, @NotNull V v2) {
+    public static <T, V> java.util.Map<T, V> of(@NonNull T k1, @NonNull V v1, @NonNull T k2, @NonNull V v2) {
         java.util.Map<T, V> map = new HashMap<>(2);
         map.put(k1, v1);
         map.put(k2, v2);

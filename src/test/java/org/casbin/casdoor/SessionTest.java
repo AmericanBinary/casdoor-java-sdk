@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Session;
 import org.casbin.casdoor.service.SessionService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,10 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SessionTest {
+public class SessionTest extends BaseCasdoorTest {
 
-        private final SessionService sessionService = new SessionService(
-                TestDefaultConfig.InitConfig());
+        private SessionService sessionService;
+
+        @BeforeEach
+        void setUp() {
+            sessionService = new SessionService(config);
+        }
 
         @Test
         public void testSession() {

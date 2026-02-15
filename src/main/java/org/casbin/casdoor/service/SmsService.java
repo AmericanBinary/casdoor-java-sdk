@@ -27,7 +27,7 @@ public class SmsService extends Service {
         super(config);
     }
 
-    public CasdoorResponse sendSms(String content, String... receivers) throws IOException {
+    public CasdoorResponse<?, ?> sendSms(String content, String... receivers) throws IOException {
         SmsForm smsForm = new SmsForm( content, receivers);
         String smsFormStr = objectMapper.writeValueAsString(smsForm);
 

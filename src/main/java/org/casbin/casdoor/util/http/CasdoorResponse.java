@@ -15,7 +15,9 @@
 package org.casbin.casdoor.util.http;
 
 
+import org.casbin.casdoor.util.CasdoorApiObject;
 
+@CasdoorApiObject
 public class CasdoorResponse<T1, T2> {
     private String status;
     private String msg;

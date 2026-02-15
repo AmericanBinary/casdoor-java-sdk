@@ -56,6 +56,10 @@ public class ProductService extends Service {
         return modifyProduct(ProductOperations.UPDATE_PRODUCT, product, null);
     }
 
+    /**
+     * @see <a href=https://github.com/casdoor/casdoor/pull/4591>feat: Remove BuyProduct endpoint and legacy purchase logic. #4591</a>
+     */
+    @Deprecated
     public Product buyProduct(String name, String providerName, String userName) throws IOException {
         java.util.Map<String, String> queryMap = Map.of(
                 "id", config.organizationName + "/" + name,

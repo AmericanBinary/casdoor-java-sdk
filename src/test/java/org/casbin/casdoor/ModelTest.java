@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Model;
 import org.casbin.casdoor.service.ModelService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ModelTest {
-    private final ModelService modelService = new ModelService(TestDefaultConfig.InitConfig());
+public class ModelTest extends BaseCasdoorTest {
+    private ModelService modelService;
+
+    @BeforeEach
+    void setUp() {
+        modelService = new ModelService(config);
+    }
 
     @Test
     public void testModel() {

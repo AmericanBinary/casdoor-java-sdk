@@ -21,12 +21,18 @@ import java.util.List;
 import org.casbin.casdoor.entity.Application;
 import org.casbin.casdoor.service.ApplicationService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ApplicationTest {
-    private final ApplicationService applicationService = new ApplicationService(TestDefaultConfig.InitConfig());
+public class ApplicationTest extends BaseCasdoorTest {
+    private ApplicationService applicationService;
+
+    @BeforeEach
+    public void setUp() {
+        applicationService = new ApplicationService(config);
+    }
 
     @Test
     public void testApplication() {

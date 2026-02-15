@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Provier;
 import org.casbin.casdoor.service.ProviderService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,10 +26,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ProvierTest {
+public class ProvierTest extends BaseCasdoorTest {
 
-    private final ProviderService providerService = new ProviderService(
-            TestDefaultConfig.InitConfig());
+    private ProviderService providerService;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        providerService = new ProviderService(config);
+    }
 
     @Test
     public void testProvider() {

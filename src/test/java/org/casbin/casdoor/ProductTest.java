@@ -17,7 +17,8 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Product;
 import org.casbin.casdoor.service.ProductService;
 import org.casbin.casdoor.support.TestDefaultConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,10 +27,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ProductTest {
+public class ProductTest extends BaseCasdoorTest {
 
-    private final ProductService productService = new ProductService(
-            TestDefaultConfig.InitConfig());
+    private ProductService productService;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        productService = new ProductService(config);
+    }
 
     @Test
     public void testProduct() {
@@ -48,6 +53,7 @@ public class ProductTest {
                 0,
                 "Published"
         );
+        product.currency = "CNY";
         product.providers = new ArrayList<>();
         product.providers.add("provider_payment_dummy");
         assertDoesNotThrow(() -> productService.addProduct(product));
@@ -89,6 +95,8 @@ public class ProductTest {
         }
         assertEquals(updatedDescription, updatedProduct.description, "Failed to update object, description mismatch");
 
+        /*
+        // see https://github.com/casdoor/casdoor/pull/4591
         // Test the buyProduct function
         Product boughtProduct;
         try {
@@ -98,10 +106,11 @@ public class ProductTest {
             if (errorMessage.contains("The user") && errorMessage.contains("doesn't exist")) {
                 assertTrue(true);
             } else {
-                fail("Failed to buy product: " + e.getMessage());
+                fail("Failed to buy product: " + e.getMessage(), e);
             }
             return;
         }
+        */
 
         // Delete the object
         assertDoesNotThrow(() -> productService.deleteProduct(product));

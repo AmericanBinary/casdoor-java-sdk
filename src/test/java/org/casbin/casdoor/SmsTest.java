@@ -16,17 +16,21 @@ package org.casbin.casdoor;
 
 import org.casbin.casdoor.entity.SmsForm;
 import org.casbin.casdoor.service.SmsService;
-import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class SmsTest {
+public class SmsTest extends BaseCasdoorTest {
 
-    private final SmsService smsService = new SmsService(
-            TestDefaultConfig.InitConfig());
+    private SmsService smsService;
+
+    @BeforeEach
+    void setUp() {
+        smsService = new SmsService(config);
+    }
 
     @Test
     public void testSms() {
@@ -36,7 +40,7 @@ public class SmsTest {
         try {
             smsService.sendSms(smsForm.content, smsForm.receivers);
         } catch (Exception e) {
-            fail("Failed to send sms:" + e.getMessage());
+            fail("Failed to send sms:" + e.getMessage(), e);
         }
 
     }

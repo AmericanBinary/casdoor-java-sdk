@@ -20,7 +20,7 @@ import org.casbin.casdoor.entity.Provier;
 import org.casbin.casdoor.util.Map;
 import org.casbin.casdoor.util.ProviderOperations;
 import org.casbin.casdoor.util.http.CasdoorResponse;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,7 +44,7 @@ public class ProviderService extends Service {
         return response.getData();
     }
 
-    public java.util.Map<String, Object> getPaginationProviders(int p, int pageSize, @Nullable java.util.Map<String, String> queryMap) throws IOException {
+    public java.util.Map<String, Object> getPaginationProviders(int p, int pageSize, java.util.@Nullable Map<String, String> queryMap) throws IOException {
         CasdoorResponse<Provier[], Object> casdoorResponse = doGet("get-providers",
                 Map.mergeMap(Map.of("owner", config.organizationName,
                         "p", Integer.toString(p),

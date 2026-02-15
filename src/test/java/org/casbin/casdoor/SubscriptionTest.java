@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Subscription;
 import org.casbin.casdoor.service.SubscriptionService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -26,9 +27,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class SubscriptionTest {
-    private final SubscriptionService subscriptionService = new SubscriptionService(
-            TestDefaultConfig.InitConfig());
+public class SubscriptionTest extends BaseCasdoorTest {
+    private SubscriptionService subscriptionService;
+
+    @BeforeEach
+    void setUp() {
+        subscriptionService = new SubscriptionService(config);
+    }
 
     @Test
     public void testSubscription() {

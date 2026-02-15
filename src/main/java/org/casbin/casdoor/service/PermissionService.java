@@ -21,7 +21,7 @@ import org.casbin.casdoor.entity.Permission;
 import org.casbin.casdoor.util.Map;
 import org.casbin.casdoor.util.PermissionOperations;
 import org.casbin.casdoor.util.http.CasdoorResponse;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +51,7 @@ public class PermissionService extends Service {
 
         return resp.getData();
     }
-    public java.util.Map<String, Object> getPaginationPermissions(int p, int pageSize, @Nullable java.util.Map<String, String> queryMap) throws IOException {
+    public java.util.Map<String, Object> getPaginationPermissions(int p, int pageSize, java.util.@Nullable Map<String, String> queryMap) throws IOException {
         CasdoorResponse<Permission[], Object> resp = doGet("get-permissions",
                 Map.mergeMap(Map.of("owner", config.organizationName,
                         "p", Integer.toString(p),

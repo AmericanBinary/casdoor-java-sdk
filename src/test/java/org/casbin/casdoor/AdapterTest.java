@@ -17,6 +17,7 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.entity.Adapter;
 import org.casbin.casdoor.service.AdapterService;
 import org.casbin.casdoor.support.TestDefaultConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,9 +26,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AdapterTest {
-    private final AdapterService adapterService = new AdapterService(
-            TestDefaultConfig.InitConfig());
+public class AdapterTest extends BaseCasdoorTest {
+    private AdapterService adapterService;
+
+    @BeforeEach
+    public void setUp() {
+        adapterService = new AdapterService(config);
+    }
 
     @Test
     public void testAdapter() {

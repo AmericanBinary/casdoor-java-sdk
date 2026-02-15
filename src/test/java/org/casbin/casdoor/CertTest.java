@@ -22,14 +22,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CertTest {
+public class CertTest extends BaseCasdoorTest {
 
-    private final CertService certService = new CertService(
-            TestDefaultConfig.InitConfig());
+    private CertService certService;
+
+    @BeforeEach
+    void setUp() {
+        certService = new CertService(config);
+    }
 
     @Test
     public void testCert() {

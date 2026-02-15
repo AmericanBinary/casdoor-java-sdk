@@ -17,16 +17,22 @@ package org.casbin.casdoor;
 import org.casbin.casdoor.service.EmailService;
 import org.casbin.casdoor.support.TestDefaultConfig;
 import org.casbin.casdoor.util.http.CasdoorResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class EmailTest {
+public class EmailTest extends BaseCasdoorTest {
 
-    private final EmailService emailService = new EmailService(TestDefaultConfig.InitConfig());
+    private EmailService emailService;
 
+
+    @BeforeEach
+    void setUp() {
+        emailService = new EmailService(config);
+    }
 
     @Test
     public void EmailTest() throws IOException {
@@ -35,10 +41,10 @@ public class EmailTest {
                     "casbin",
                     "casdoor-java-sdk website test",
                     "admin",
-                    new String[]{"TestSmtpServer"});
+                    new String[]{"example@localhost.local"});
         } catch (Exception e) {
             if (!e.getMessage().contains("535 Error: authentication failed, system busy")) {
-                fail("Failed to get objects: " + e.getMessage());
+                fail("Failed to get objects: " + e.getMessage(), e);
             }
         }
     }

@@ -20,7 +20,7 @@ import org.casbin.casdoor.entity.Session;
 import org.casbin.casdoor.util.Map;
 import org.casbin.casdoor.util.SessionOperations;
 import org.casbin.casdoor.util.http.CasdoorResponse;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +35,7 @@ public class SessionService extends Service {
                 Map.of("owner", config.organizationName), new TypeReference<CasdoorResponse<List<Session>, Object>>() {});
         return resp.getData();
     }
-    public java.util.Map<String, Object> getPaginationSessions(int p, int pageSize, @Nullable java.util.Map<String, String> queryMap) throws IOException {
+    public java.util.Map<String, Object> getPaginationSessions(int p, int pageSize, java.util.@Nullable Map<String, String> queryMap) throws IOException {
         CasdoorResponse<Session[], Object> casdoorResponse = doGet("get-sessions",
                 Map.mergeMap(Map.of("owner", config.organizationName,
                         "p", Integer.toString(p),

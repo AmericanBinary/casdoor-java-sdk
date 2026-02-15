@@ -16,30 +16,33 @@ package org.casbin.casdoor;
 
 import org.casbin.casdoor.entity.Resource;
 import org.casbin.casdoor.service.ResourceService;
-import org.casbin.casdoor.support.TestDefaultConfig;
 import org.casbin.casdoor.util.http.CasdoorResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ResourceTest {
+public class ResourceTest extends BaseCasdoorTest {
 
-    private ResourceService resourceService = new ResourceService(
-            TestDefaultConfig.InitConfig());
+    private ResourceService resourceService;
+
+    @BeforeEach
+    void setUp() {
+        resourceService = new ResourceService(config);
+    }
 
     @Test
     public void testResource() throws IOException {
         // uploadResource
-        String filename = "/casbinTest.svg";
-        File data = new File(this.getClass().getResource(filename).getFile());
-        String name = String.format("/casdoor/%s", filename);
+        String name = "/casbinTest.svg";
+        File data = new File(this.getClass().getResource(name).getFile());
         Resource resource = new Resource(
-                "casbin",
+                config.getOrganizationName(),
                 name
         );
-        CasdoorResponse<String, Object> response = resourceService.uploadResource(resource.owner, name, "", filename, data);
+        CasdoorResponse<String, Object> response = resourceService.uploadResource(resource.owner, name, "", name, data);
         Assertions.assertEquals("ok", response.getStatus());
 
         // Delete the resource
